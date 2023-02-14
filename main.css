@@ -1,0 +1,77 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Helvatica',sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+@font-face {
+    font-family:'Helvatica';
+    src: url('font/helvetica-light-587ebe5a59211.ttf');
+}
+
+.screen-container{
+    background-color:#000000;
+    height:31.25em;
+    width:80%;
+    max-width:300px;
+    padding:.5em;
+}
+
+.screen-container .display-result{
+    position:relative;
+    height:30%;
+    color:white;
+    font-size:4rem;
+}
+
+.display-result .displayed-number{
+    position:absolute;
+    right:.35em;
+    bottom:0;
+}
+
+.screen-container .button-container{
+    display:grid;
+    justify-items:center;
+    grid-template-columns:repeat(4,1fr);
+    height:70%;
+}
+
+.button-container .zero{
+    grid-column:1/3;
+    width:90%;
+    border-radius:40px;
+    text-align:left;
+    padding-left:.8em;
+}
+
+.button-container .orange-bg{
+    background-color:#f69906;
+    color:white;
+}
+
+.button-container .gray-bg{
+    background-color:#a0a0a0;
+}
+
+.button-container .light-black{
+    background-color:#313131;
+    color:white;
+}
+
+button{
+   font-size:1.8rem;
+   height:2em;
+   width:2em;
+   border-radius:50%;
+   border:none;
+   cursor:pointer;
+}
