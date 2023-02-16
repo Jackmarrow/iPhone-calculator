@@ -1,44 +1,64 @@
 const valueReader = document.getElementById('valueReader');
-const buttonHandler = document.querySelector('.button-container');
-let number = 0;
-let result = ""; 
+const operatorButtons = document.querySelectorAll('#operation');
+const numberButtons = document.querySelectorAll('#number');
+const equalButton = document.querySelector('#equal');
+const extraOperation = document.querySelectorAll('#extraOperation');
+
+let num1 = "";
+let num2 = "";
+let operation;
 
 //------------ Eventlistener -----------
-buttonHandler.addEventListener('click', calculate)
+
+equalButton.addEventListener('click',() => {
+    const output = displayResult(operation,num1,num2);
+    valueReader.innerHTML = output;
+    num1 = "";
+    num2 = "";
+    operation = undefined;
+});
+
+operatorButtons.forEach((ele) => {
+    ele.addEventListener('click',(e) => {
+       operation = e.target.innerHTML;
+    })
+})
+
+numberButtons.forEach((ele) => {
+    ele.addEventListener('click',(e) => {
+        e.stopPropagation();
+        if(operation){
+            num2 += e.target.innerHTML;
+            valueReader.innerHTML = num2;
+        }
+        else{
+            num1 += e.target.innerHTML;
+            valueReader.innerHTML = num1;
+        }
+    })
+})
 
 //----------- Function -------------
 
-
-function calculate(e){
-    const operationClass = e.target.className.split(' ')[0];
-    const selectedValue = e.target.innerText;
-    if(!isNaN(selectedValue) || selectedValue === ','){
-        number += selectedValue;
-        valueReader.innerText = number;
-    }
-    if(operationClass === 'operation'){
-        selectedOperation(e.target.id);
-        console.log(e.target.id);
-        console.log(result);
-    }
-}
-
-function selectedOperation(operation){
+function displayResult(operation,num1,num2){
+    let result;
     switch(operation){
-        case 'minus':
-            result= '-';
-            break; 
-        case 'divide':
-            result += '/';
-            break; 
-        case 'times':
-            result += '*';
-            break; 
-        case 'equal':
-            valueReader.innerText = result;
-            break; 
+        case '+':
+            result = (+num1) + (+num2)
+            break
+        case '÷':
+            result = num1 / num2
+            break
+        case '×':
+            result = num1 * num2
+            break
+        case '-':
+            result = num1 - num2
+            break
         default:
-            'error';    
+            'Error'    
     }
+    return result;
 }
+
 
