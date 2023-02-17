@@ -51,6 +51,12 @@ body{
 .button-container .orange-bg{
     background-color:#f69906;
     color:white;
+    transition:all 500ms;
+}
+
+.button-container .orange-bg:focus{
+    background-color:white;
+    color:#f69906;
 }
 
 .button-container .gray-bg{

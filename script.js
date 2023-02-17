@@ -10,37 +10,63 @@ let operation;
 
 //------------ Eventlistener -----------
 
-equalButton.addEventListener('click',() => {
-    const output = displayResult(operation,num1,num2);
-    valueReader.innerHTML = output;
-    num1 = "";
-    num2 = "";
-    operation = undefined;
-});
+extraOperation.forEach((ele) => {
+    ele.addEventListener('click',(e) => {
+        if(e.target.innerHTML === 'AC'){
+           valueReader.innerHTML = 0;
+           clearAll();
+        }
+    })
+})
+
+
+equalButton.addEventListener('click', showResultOnScreen);
 
 operatorButtons.forEach((ele) => {
-    ele.addEventListener('click',(e) => {
-       operation = e.target.innerHTML;
-    })
+    ele.addEventListener('click',checkNumValue);
 })
 
 numberButtons.forEach((ele) => {
-    ele.addEventListener('click',(e) => {
-        e.stopPropagation();
-        if(operation){
-            num2 += e.target.innerHTML;
-            valueReader.innerHTML = num2;
-        }
-        else{
-            num1 += e.target.innerHTML;
-            valueReader.innerHTML = num1;
-        }
-    })
+    ele.addEventListener('click', assignValuesToNumber)
 })
+
+
 
 //----------- Function -------------
 
-function displayResult(operation,num1,num2){
+function clearAll(){
+    num1 = "";
+    num2 = "";
+    operation = undefined;
+}
+
+function checkNumValue(e){
+    if(num1){
+        operation = e.target.innerHTML;
+   }
+}
+
+function showResultOnScreen(){
+    if(num1 && num2){
+        const output = selectedOperation(operation,num1,num2);
+        valueReader.innerHTML = output;
+        clearAll();
+    }
+}
+
+function assignValuesToNumber(e){
+    e.stopPropagation();
+    if(operation){
+        num2 += e.target.innerHTML;
+        valueReader.innerHTML = num2;
+    }
+    else{
+        num1 += e.target.innerHTML;
+        valueReader.innerHTML = num1;
+    }
+}
+
+function selectedOperation(operation,num1,num2){
     let result;
     switch(operation){
         case '+':
@@ -62,3 +88,6 @@ function displayResult(operation,num1,num2){
 }
 
 
+// const test = document.querySelector('.test');
+
+// console.log(test.dataset);
